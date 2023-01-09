@@ -1,28 +1,28 @@
 include:
-- ./func/*
+- fission.py
 kind: ArchiveUploadSpec
-name: func-QUCM
+name: fission-py-duuJ
 
 ---
 apiVersion: fission.io/v1
 kind: Package
 metadata:
   creationTimestamp: null
-  name: notification-details-fn-06ef8e8d-8fe3-4c7b-b22d-30baa8215c2e
+  name: notification-details-fn-8fb550f8-4e7a-45c1-9aec-24542604405e
   namespace: default
 spec:
   deployment:
     checksum: {}
+    type: url
+    url: archive://fission-py-duuJ
   environment:
     name: notification-details-env
     namespace: default
   source:
     checksum: {}
-    type: url
-    url: archive://func-QUCM
 status:
-  buildstatus: pending
-  lastUpdateTimestamp: "2022-11-29T22:17:26Z"
+  buildstatus: none
+  lastUpdateTimestamp: "2023-01-09T20:18:45Z"
 
 ---
 apiVersion: fission.io/v1
@@ -35,10 +35,17 @@ spec:
   InvokeStrategy:
     ExecutionStrategy:
       ExecutorType: newdeploy
-      MaxScale: 1
+      MaxScale: 3
       MinScale: 1
       SpecializationTimeout: 120
-      TargetCPUPercent: 80
+      TargetCPUPercent: 0
+      hpaMetrics:
+      - resource:
+          name: cpu
+          target:
+            averageUtilization: 80
+            type: Utilization
+        type: Resource
     StrategyType: execution
   concurrency: 500
   environment:
@@ -47,9 +54,8 @@ spec:
   functionTimeout: 60
   idletimeout: 120
   package:
-    functionName: main.get_notification_details
     packageref:
-      name: notification-details-fn-06ef8e8d-8fe3-4c7b-b22d-30baa8215c2e
+      name: notification-details-fn-8fb550f8-4e7a-45c1-9aec-24542604405e
       namespace: default
   requestsPerPod: 10000
   resources: {}
