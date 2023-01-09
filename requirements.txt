@@ -5,3 +5,9 @@ flask==2.2.2
 heimdall-client==2.3.1
 motor==3.1.1
 pydantic==1.10.2
+
+
+uvloop==0.17.0
+uvicorn==0.20.0
+asgiref==3.5.2
+hypercorn==0.13.2

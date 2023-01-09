@@ -1,5 +1,4 @@
-#!/bin/bash
 fission spec init
-fission env create --spec --name notification-details-env --image nexus.sigame.com.br/fission-async:0.1.9 --builder nexus.sigame.com.br/fission-builder-3.8:0.0.1
-fission fn create --spec --name notification-details-fn --env notification-details-env --src "./func/*" --entrypoint main.get_notification_details --executortype newdeploy --maxscale 1
+fission env create --spec --name notification-details-env --image nexus.sigame.com.br/fission-notification-details:0.1.0-2 --poolsize 0 --version 3 --imagepullsecret "nexus-v3" --spec
+fission fn create --spec --name notification-details-fn --env notification-details-env --code fission.py --targetcpu 80 --executortype newdeploy --maxscale 3 --requestsperpod 10000 --spec
 fission route create --spec --name notification-details-rt --method GET --url /notification/details --function notification-details-fn
