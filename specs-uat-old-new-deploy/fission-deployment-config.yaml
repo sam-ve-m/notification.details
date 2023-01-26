@@ -4,4 +4,4 @@
 apiVersion: fission.io/v1
 kind: DeploymentConfig
 name: notification-details
-uid: 943358a9-4bff-4323-94e0-a99850ff8916
+uid: 2fdbc058-2482-45d4-a925-57a187bc1ee5
